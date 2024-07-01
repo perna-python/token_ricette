@@ -1,8 +1,6 @@
 import flet as ft
 import pyperclip
 from ricercaToken import token_emergenze, token_ricetta_bianca_elettronica, richiesta_token_emergenza
-
-
 import time
 
 class Emergenza(ft.Column):
