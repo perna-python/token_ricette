@@ -27,7 +27,12 @@ class Emergenza(ft.Column):
                     aggiornaButton,
                 ]
             ),
-            richiediTokenButton,
+            ft.Row(
+                alignment = ft.MainAxisAlignment.CENTER,
+                controls=[
+                    richiediTokenButton,
+                ]
+            ),
             ft.Row(
                 alignment = ft.MainAxisAlignment.CENTER,
                 controls=[
@@ -74,8 +79,9 @@ class Emergenza(ft.Column):
 
     # altro
     def snackBar(self, text, bgcolor="green"):
-        self.page.snack_bar = ft.SnackBar(ft.Text(text), bgcolor=bgcolor)
-        self.page.snack_bar.open = True
+        snack = ft.SnackBar(ft.Text(text), bgcolor=bgcolor)
+        self.page.overlay.append(snack)
+        snack.open = True
         self.page.update()
 
 
@@ -134,8 +140,9 @@ class RicettaBianca(ft.Column):
 
     # altro
     def snackBar(self, text, bgcolor="green"):
-        self.page.snack_bar = ft.SnackBar(ft.Text(text), bgcolor=bgcolor)
-        self.page.snack_bar.open = True
+        snack = ft.SnackBar(ft.Text(text), bgcolor=bgcolor)
+        self.page.overlay.append(snack)
+        snack.open = True
         self.page.update()
 
 
