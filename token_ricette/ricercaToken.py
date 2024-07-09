@@ -16,6 +16,7 @@ load_dotenv()
 
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+IMAP_SERVER = os.getenv("IMAP_SERVER")
 USERNAME = os.getenv("USERNAME")
 PASSWORD = os.getenv("PASSWORD")
 
@@ -26,7 +27,7 @@ def login_gmail():
         password = EMAIL_PASSWORD
         sender_email = 'noreply@apss.tn.it'
 
-        mail = imaplib.IMAP4_SSL("imap.gmail.com")
+        mail = imaplib.IMAP4_SSL(IMAP_SERVER)
         mail.login(email_address, password)
         logging.info("Login riuscito.")
         mail.select("inbox")
