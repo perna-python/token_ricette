@@ -43,7 +43,7 @@ def login_gmail():
 
 def parse_email_date(date_str):
     try:
-        return parser.parse(date_str).astimezone(tz.tzlocal())
+        return parser.parse(date_str, dayfirst=True).astimezone(tz.tzlocal())
     except Exception as e:
         logging.error(f"Errore durante il parsing della data dell'email: {e}")
         return None
