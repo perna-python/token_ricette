@@ -139,14 +139,13 @@ def token_ricetta_bianca_elettronica():
             _, msg_data = mail.fetch(msg_id, "(RFC822)")
             raw_email = msg_data[0][1]
             msg = email.message_from_bytes(raw_email)
-            email_date = parse_email_date(msg["Date"])
 
-            if email_date:
-                token = extract_token_from_email(msg, "A.P.S.S. - Token per Ricetta Bianca Elettronica", table_index=1)
-                if token:
-                    validita_token = extract_token_from_email(msg, "A.P.S.S. - Token per Ricetta Bianca Elettronica", table_index=5)
-                    if validita_token:
-                        valid = is_token_valid(email_date, validity_minutes=(parse_email_date(validita_token) - datetime.now(tz.tzlocal())).total_seconds() / 60)
+            token = extract_token_from_email(msg, "A.P.S.S. - Token per Ricetta Bianca Elettronica", table_index=1)
+            if token:
+                validita_token = extract_token_from_email(msg, "A.P.S.S. - Token per Ricetta Bianca Elettronica", table_index=5)
+                if validita_token:
+                    if (parse_email_date(validita_token) - datetime.now(tz.tzlocal())).total_seconds() / 60 > 0:
+                        valid = True
                         break
         except Exception as e:
             logging.error(f"Errore durante l'elaborazione dell'email con ID {msg_id}: {e}")
@@ -170,5 +169,5 @@ def richiesta_token_emergenza():
         logging.error(f"Errore durante la richiesta HTTP: {e}")
 
 if __name__ == "__main__":
-    logging.info(f"Token emergenze: {token_emergenze()}")
+    # logging.info(f"Token emergenze: {token_emergenze()}")
     logging.info(f"Token ricetta bianca elettronica: {token_ricetta_bianca_elettronica()}")
