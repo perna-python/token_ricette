@@ -14,9 +14,9 @@ class Emergenza(ft.Column):
         # 2
         self.tokenText = ft.Text(value=self.testo())
         # 3
-        self.copiaButton = ft.IconButton(icon=ft.icons.COPY, on_click=self.copia)
+        self.copiaButton = ft.IconButton(icon=ft.Icons.COPY, on_click=self.copia)
         # 4
-        aggiornaButton = ft.IconButton(icon=ft.icons.UPDATE, on_click=self.aggiorna)
+        aggiornaButton = ft.IconButton(icon=ft.Icons.UPDATE, on_click=self.aggiorna)
 
         self.horizontal_alignment = ft.CrossAxisAlignment.CENTER,
         self.controls=[
@@ -93,9 +93,9 @@ class RicettaBianca(ft.Column):
         # 1
         self.tokenText = ft.Text(value=self.testo())
         # 2
-        self.copiaButton = ft.IconButton(icon=ft.icons.COPY, on_click=self.copia)
+        self.copiaButton = ft.IconButton(icon=ft.Icons.COPY, on_click=self.copia)
         # 3
-        aggiornaButton = ft.IconButton(icon=ft.icons.UPDATE, on_click=self.aggiorna)
+        aggiornaButton = ft.IconButton(icon=ft.Icons.UPDATE, on_click=self.aggiorna)
 
         self.horizontal_alignment = ft.CrossAxisAlignment.CENTER,
         self.controls = [
