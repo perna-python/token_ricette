@@ -7,18 +7,19 @@ from dateutil import parser, tz
 import httpx
 import logging
 from bs4 import BeautifulSoup
-from dotenv import load_dotenv
+
+from config import email_config, apss_config
 
 # Configurazione del logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-load_dotenv()
+EMAIL_ADDRESS = email_config["EMAIL_ADDRESS"]
+EMAIL_PASSWORD = email_config["EMAIL_PASSWORD"]
+IMAP_SERVER = email_config["IMAP_SERVER"]
 
-EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
-IMAP_SERVER = os.getenv("IMAP_SERVER")
-USERNAME = os.getenv("USERNAME")
-PASSWORD = os.getenv("PASSWORD")
+LOGIN_URL = apss_config["LOGIN_URL"]
+USERNAME = apss_config["USERNAME"]
+PASSWORD = apss_config["PASSWORD"]
 
 def login_gmail():
     logging.info("Tentativo di login all'email.")
@@ -156,14 +157,17 @@ def token_ricetta_bianca_elettronica():
 
 def richiesta_token_emergenza():
     logging.info("Inizio richiesta token emergenza tramite HTTP.")
+    headers = {
+        "Referer": LOGIN_URL
+    }
     try:
-        with httpx.Client(timeout=None, follow_redirects=True) as client:
+        with httpx.Client(timeout=None, follow_redirects=True, headers=headers) as client:
             data = {
                 'user': USERNAME,
                 'password': PASSWORD,
                 'login': 'login',
             }
-            response = client.post("https://servizi.apss.tn.it/farmacie/login.php", data=data)
+            response = client.post(LOGIN_URL, data=data)
             logging.info(f"Richiesta HTTP completata con status code: {response.status_code}")
     except Exception as e:
         logging.error(f"Errore durante la richiesta HTTP: {e}")
